@@ -42,7 +42,10 @@ public class AddressImpl implements Address {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         String sql = "from Addresslist where name=? and phone= ?";
+        // 使用hql查询
         Query query = session.createQuery(sql);
+        // 构造原生态的sql查询：写sql语句
+//         session.createSQLQuery();
         query.setParameter(0,name);
         query.setParameter(1,phone);
         int x = query.list().size();
