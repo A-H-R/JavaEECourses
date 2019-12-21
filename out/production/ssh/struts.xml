@@ -15,5 +15,10 @@
         <action name="add" class="addressAction" method="add">
             <result name="success">/success.jsp</result>
         </action>
+        <action name="query" class="addressAction" method="query">
+        </action>
+        <action name="login" class="addressAction" method="login">
+
+        </action>
     </package>
 </struts>
