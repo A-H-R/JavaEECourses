@@ -15,79 +15,78 @@
 
 </head>
 <body>
-    <!-- 总体 -->
-    <div>
-        <div align="center">
-            <img src="static/img/air3.jpg" style="display: block;height: auto;width: 100%;line-height: 1;">
-        </div>
-
-        <a href="success.jsp">wo tao tiao </a>
-        <!-- 表格 -->
-        <div>
-            <div class="container">
-                <table class="table table-striped table-hover">
-                    <thead class="thead-light">
-                    <tr>
-                        <th>时间</th>
-                        <th>AQI</th>
-                        <th>范围</th>
-                        <th>质量等级</th>
-                        <th>PM2.5</th>
-                        <th>PM10</th>
-                        <th>SO2</th>
-                        <th>CO</th>
-                        <th>NO2</th>
-                        <th>O3</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-
-        <!-- 图例 -->
-        <div>
-            <div align="center" class="mycharts" id="historypopu"></div>
-        </div>
-
-
-        <div id="container" style="width: 400px;height: 300px;"></div>
+<!-- 总体 -->
+<div>
+    <div align="center">
+        <img src="static/img/air3.jpg" style="display: block;height: auto;width: 100%;line-height: 1;">
     </div>
 
-    <style type="text/css">
-        .mycharts{
-            background-color: black;
-            min-width: 650px;
-            min-height: 395px;
-            max-width: 804px;
-            max-height: 468px;
-            margin: auto;
-        }
-        .tablespan{
-            padding: 5px 10px;
-            border-radius: 5px;
-            box-shadow: 2px 2px 10px grey;
-        }
-        .serious{
-            background-color: #EA3F05;
-        }
-        .moderate{
-            background-color: #f88612;
-        }
-        .mild{
-            background-color: #f6c98d;
-        }
-        .good{
-            background-color: aquamarine;
-        }
-        .excellent{
-            background-color: darkgreen;
-        }
+    <a href="success.jsp">wo tao tiao </a>
+    <!-- 表格 -->
+    <div>
+        <div class="container">
+            <table class="table table-striped table-hover">
+                <thead class="thead-light">
+                <tr>
+                    <th>时间</th>
+                    <th>AQI</th>
+                    <th>范围</th>
+                    <th>质量等级</th>
+                    <th>PM2.5</th>
+                    <th>PM10</th>
+                    <th>SO2</th>
+                    <th>CO</th>
+                    <th>NO2</th>
+                    <th>O3</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 
-    </style>
+    <!-- 图例 -->
+    <div>
+        <div align="center" class="mycharts" id="historypopu"></div>
+    </div>
+
+
+    <div id="container" style="width: 400px;height: 300px;"></div>
+</div>
+
+<style type="text/css">
+    .mycharts{
+        min-width: 650px;
+        min-height: 395px;
+        max-width: 804px;
+        max-height: 468px;
+        margin: auto;
+    }
+    .tablespan{
+        padding: 5px 10px;
+        border-radius: 5px;
+        box-shadow: 2px 2px 10px grey;
+    }
+    .serious{
+        background-color: #EA3F05;
+    }
+    .moderate{
+        background-color: #f88612;
+    }
+    .mild{
+        background-color: #f6c98d;
+    }
+    .good{
+        background-color: aquamarine;
+    }
+    .excellent{
+        background-color: darkgreen;
+    }
+
+
+</style>
 
 
 <script type="text/javascript">
@@ -197,84 +196,6 @@
     $(function () {
         loaddata();
     })
-</script>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script type="text/javascript">
-
-
-
-
-
-
-    $(function () {
-
-    });
-    var success =[];
-    $(document).ready(function() {
-
-        $("#btn").click(function() {
-            alert(123);
-            $.ajax({
-                url : "yearAQI/query",   //这个就是填相应的action
-                type : "POST",         //数据发送方
-                // 要传递的数据
-                data : {
-                    name:'123456',
-                    phone:'123456789'
-                },
-
-                // 回调函数，接受服务器端返回给客户端的值，即result值
-                success : function(data) {      //后台传回json
-                    alert("返回东西了");
-
-                    alert(data);
-                    success = data;
-                    console.info(data);
-                }
-
-            });
-        });
-    });
-
 </script>
 </body>
 </html>

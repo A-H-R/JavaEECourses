@@ -20,6 +20,8 @@
         <div align="center">
             <img src="static/img/air3.jpg" style="display: block;height: auto;width: 100%;line-height: 1;">
         </div>
+
+        <a href="success.jsp">wo tao tiao </a>
         <!-- 表格 -->
         <div>
             <div class="container">
@@ -68,9 +70,22 @@
             border-radius: 5px;
             box-shadow: 2px 2px 10px grey;
         }
-        .liang{
-            background-color: #eaa52c;
+        .serious{
+            background-color: #EA3F05;
         }
+        .moderate{
+            background-color: #f88612;
+        }
+        .mild{
+            background-color: #f6c98d;
+        }
+        .good{
+            background-color: aquamarine;
+        }
+        .excellent{
+            background-color: darkgreen;
+        }
+
 
     </style>
 
@@ -87,38 +102,51 @@
                 cityname : city
             },
             success : function (data) {
-                showTable(data);
+
                 var AQI = [];
                 var PM25 = [];
                 var SO2 = [];
                 var NO2 = [];
                 var time = [];
+                var spanclass = [];
                 for (var i = 0; i < data.length;i++){
                     AQI[i] = parseInt(data[i].aqi);
                     PM25[i] = parseInt(data[i].pm25);
                     SO2[i] = parseInt(data[i].so2);
                     NO2[i] = parseInt(data[i].no2);
                     time.push(data[i].data);
+
+                    //spanclass
+                    switch (data[i].level) {
+                        case "严重污染" : spanclass.push("serious"); break;
+                        case "中度污染" : spanclass.push("moderate"); break;
+                        case "轻度污染" : spanclass.push("mild"); break;
+                        case "良" : spanclass.push("good"); break;
+                        case "优" : spanclass.push("excellent"); break;
+                        default : break;
+
+                    }
                 }
+                showTable(data,spanclass);
                 showHistory(AQI,PM25,SO2,NO2,time);
             }
         });
     }
-    function showTable(items){
-        items.forEach(function (item) {
+    function showTable(items,spanclass){
+        for (var i = 0; i<items.length;i++){
             $("table tbody").append('<tr>' +
-                '<td>'+item.data+'</td>' +
-                '<td>'+item.aqi+'</td>' +
-                '<td>'+item.range+'</td>' +
-                '<td><span class="tablespan liang">'+item.level+'</span></td>' +
-                '<td>'+item.pm25+'</td>' +
-                '<td>'+item.pm10+'</td>' +
-                '<td>'+item.so2+'</td>' +
-                '<td>'+item.co+'</td>' +
-                '<td>'+item.no2+'</td>' +
-                '<td>'+item.o3+'</td>' +
+                '<td>'+items[i].data+'</td>' +
+                '<td>'+items[i].aqi+'</td>' +
+                '<td>'+items[i].range+'</td>' +
+                '<td><span class="tablespan '+ spanclass[i]+'">'+items[i].level+'</span></td>' +
+                '<td>'+items[i].pm25+'</td>' +
+                '<td>'+items[i].pm10+'</td>' +
+                '<td>'+items[i].so2+'</td>' +
+                '<td>'+items[i].co+'</td>' +
+                '<td>'+items[i].no2+'</td>' +
+                '<td>'+items[i].o3+'</td>' +
                 '</tr>')
-        })
+        }
     }
 
     function showHistory(AQI,PM25,CO,NO2,time){
@@ -152,7 +180,7 @@
                     color : '#470756',
                     data : PM25
                 },{
-                    name : 'CO',
+                    name : 'SO2',
                     type : 'spline',
                     color : '#123456',
                     data : CO
