@@ -95,10 +95,10 @@
             city = "nanjing";
         }
         $.ajax({
-            url : "yearAQI/query",
+            url : "yearAQI/querybyname",
             type : "post",
             data : {
-                cityname : city
+                name : 'nanjing'
             },
             success : function (data) {
 

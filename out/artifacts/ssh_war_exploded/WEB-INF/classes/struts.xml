@@ -24,5 +24,6 @@
 
     <package name="yearAQI" namespace="/yearAQI" extends="struts-default">
         <action name="query" class="yearAQIAction" method="query"></action>
+        <action name="querybyname" class="yearAQIAction" method="queryByName"></action>
     </package>
 </struts>

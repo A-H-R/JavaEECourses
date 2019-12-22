@@ -36,4 +36,13 @@ public class YearAQIImpl implements YearAQI {
         }
         return null;
     }
+
+    @Override
+    public  List<YearNanjing> queryByName(String name){
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        String sql = "select * from year_"+name;
+        List<YearNanjing> list = session.createSQLQuery(sql).addEntity(YearNanjing.class).list();
+        return list;
+    }
 }
