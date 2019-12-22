@@ -15,10 +15,14 @@
         <action name="add" class="addressAction" method="add">
             <result name="success">/success.jsp</result>
         </action>
-        <action name="query" class="addressAction" method="query">
-        </action>
+        <action name="query" class="addressAction" method="query"></action>
         <action name="login" class="addressAction" method="login">
 
         </action>
+    </package>
+
+
+    <package name="yearAQI" namespace="/yearAQI" extends="struts-default">
+        <action name="query" class="yearAQIAction" method="query"></action>
     </package>
 </struts>

@@ -1,0 +1,38 @@
+body{
+	margin: 0px;
+}
+.title_font{
+	margin: 15px 30px;
+    font-size: xx-large;
+    font-family: fantasy;
+    color: darkgreen;
+}
+.title{
+	border: 1px solid;
+}
+
+nav ul{
+	margin: 0px;
+	list-style: none;
+	padding-left: 8px;
+	
+}
+
+nav ul li{
+	margin: 8px 0px;
+	border: 1px solid darkgreen;
+	margin-right: 1px;
+}
+.content{
+    float: left;
+    margin: 2px;
+
+}
+
+.selectcity{
+	padding: 5px;
+    border-radius: 6px;
+}
+
+
+
