@@ -12,6 +12,7 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/css/nav.css">
     <%
         String name = request.getParameter("name");
         String month = request.getParameter("month");
@@ -20,11 +21,15 @@
 <body>
 <!-- 总体 -->
 <div>
+    <div class="nav">
+        <div class="nav_item"><a href="index.jsp">历史数据</a></div>
+        <div class="nav_item"><a href="#">图片定制</a></div>
+    </div>
+
     <div align="center">
         <img src="static/img/air3.jpg" style="display: block;height: auto;width: 100%;line-height: 1;">
     </div>
 
-    <a href="success.jsp">wo tao tiao </a>
     <!-- 表格 -->
     <div>
         <div class="container">

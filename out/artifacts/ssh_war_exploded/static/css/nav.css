@@ -1,0 +1,14 @@
+.nav{
+    position: absolute;
+}
+.nav_item{
+    display: inline-block;
+    margin: 5px 19px;
+    padding: 5px 12px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    background: azure;
+}
+.nav_item a{
+	color: black;
+}

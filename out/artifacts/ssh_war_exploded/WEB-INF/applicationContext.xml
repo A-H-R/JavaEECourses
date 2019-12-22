@@ -21,19 +21,21 @@
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.connection.url"><![CDATA[jdbc:mysql://localhost:3306/jdata?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC]]></prop>
-                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+                <prop key="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</prop>
             </props>
         </property>
         <property name="mappingLocations">
             <list>
                 <value>classpath:bean/Addresslist.hbm.xml</value>
                 <value>classpath:bean/YearNanjing.hbm.xml</value>
+                <value>classpath:bean/City.hbm.xml</value>
             </list>
         </property>
         <property name="annotatedClasses">
             <list>
                 <value>bean.Addresslist</value>
                 <value>bean.YearNanjing</value>
+                <value>bean.City</value>
             </list>
         </property>
     </bean>
@@ -55,6 +57,13 @@
         <property name="yearAQI" ref="yearAQI"></property>
     </bean>
 
+
+    <bean id="cityname" class="service.CityImpl">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="cityAction" class="action.CityAction">
+        <property name="city" ref="cityname"></property>
+    </bean>
 
 
 </beans>

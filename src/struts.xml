@@ -8,6 +8,7 @@
     <!-- struts的action配置文件 -->
     <!-- 将action托管给spring -->
     <constant name="struts.objectFactory" value="spring"></constant>
+    <constant name="struts.action.excludePattern" value="/static/.*?" />
 
     <!-- 所有的action都应该放在对应的package下 -->
     <!--action的class属性不再是具体的类,而是spring配置文件配置的bean id-->
@@ -27,5 +28,9 @@
         <action name="querybyname" class="yearAQIAction" method="queryByName"></action>
 
 
+    </package>
+
+    <package name="city" namespace="/city" extends="struts-default">
+        <action name="cityname" class="cityAction" method="getcityname"></action>
     </package>
 </struts>
