@@ -27,10 +27,15 @@
     <div align="center">
         <img src="static/img/air3.jpg" style="display: block;height: auto;width: 100%;line-height: 1;">
     </div>
+
+    <!-- 图例 -->
+    <div class="container">
+        <div align="center" class="mycharts" id="historypopu"></div>
+    </div>
     <!-- 表格 -->
     <div>
         <div class="container">
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover size">
                 <thead class="thead-light">
                 <tr>
                     <th>时间</th>
@@ -51,23 +56,20 @@
         </div>
     </div>
 
-
-    <!-- 图例 -->
-    <div>
-        <div align="center" class="mycharts" id="historypopu"></div>
-    </div>
-
-
     <div id="container" style="width: 400px;height: 300px;"></div>
 </div>
 
 <style type="text/css">
-    .mycharts{
-        min-width: 650px;
-        min-height: 395px;
-        max-width: 804px;
-        max-height: 468px;
-        margin: auto;
+    /*.mycharts{*/
+    /*    min-width: 650px;*/
+    /*    min-height: 395px;*/
+    /*    max-width: 804px;*/
+    /*    max-height: 468px;*/
+    /*    margin: auto;*/
+    /*}*/
+    .size{
+        height: 500px;
+        overflow: hidden;
     }
     .tablespan{
         padding: 5px 10px;
@@ -95,6 +97,68 @@
 
 
 <script type="text/javascript">
+    var alfa = 0.8;
+    var valuePlotBaud = [{
+        from: 0,
+        to: 50,
+        color: 'rgba(0, 254, 3, ' + alfa + ')',
+        label: {
+            text: '优',
+            style: {
+                color: "#606060"
+            }
+        }
+    }, {
+        from: 51,
+        to: 100,
+        color: 'rgba(254, 245, 0, ' + alfa + ')',
+        label: {
+            text: '良',
+            style: {
+                color: '#606060'
+            }
+        }
+    }, {
+        from: 101,
+        to: 150,
+        color: 'rgba(254, 125, 0, ' + alfa + ')',
+        label: {
+            text: '轻度污染',
+            style: {
+                color: '#606060'
+            }
+        }
+    }, {
+        from: 151,
+        to: 200,
+        color: 'rgba(255, 3, 3, ' + alfa + ')',
+        label: {
+            text: '中度污染',
+            style: {
+                color: '#606060'
+            }
+        }
+    }, {
+        from: 201,
+        to: 300,
+        color: 'rgba(188, 3,205 , ' + alfa + ')',
+        label: {
+            text: '重度污染',
+            style: {
+                color: '#606060'
+            }
+        }
+    }, {
+        from: 301,
+        to:600,
+        color: 'rgba(72, 0, 78, ' + alfa + ')',
+        label: {
+            text: '严重污染',
+            style: {
+                color: '#606060'
+            }
+        }
+    }];
     function loaddata(){
         $.ajax({
             url : "yearAQI/querybyname",
@@ -103,20 +167,18 @@
                 name : '<%=cityname%>'
             },
             success : function (data) {
-
-                var AQI = [];
-                var PM25 = [];
-                var SO2 = [];
-                var NO2 = [];
                 var time = [];
+                var max = [];
+                var min = [];
+                var avg = [];
                 var spanclass = [];
                 for (var i = 0; i < data.length;i++){
-                    AQI[i] = parseInt(data[i].aqi);
-                    PM25[i] = parseInt(data[i].pm25);
-                    SO2[i] = parseInt(data[i].so2);
-                    NO2[i] = parseInt(data[i].no2);
+                    // AQI[i] = parseInt(data[i].aqi);
+                    var x = data[i].range.split("~");
+                    max.push(parseInt(x[0]));
+                    min.push(parseInt(x[1]));
+                    avg.push((parseInt(x[0])+parseInt(x[1]))/2);
                     time.push(data[i].data);
-
                     //spanclass
                     switch (data[i].level) {
                         case "严重污染" : spanclass.push("serious"); break;
@@ -129,7 +191,7 @@
                     }
                 }
                 showTable(data,spanclass);
-                showHistory(AQI,PM25,SO2,NO2,time);
+                showHistory(max,min,avg,time);
             }
         });
     }
@@ -150,7 +212,7 @@
         }
     }
 
-    function showHistory(AQI,PM25,CO,NO2,time){
+    function showHistory(max,min,avg,time){
         $('#historypopu').highcharts({
             chart : {
                 zoomType: '',
@@ -167,29 +229,45 @@
                 title: {
                     text: '空气质量指数'
                 },
-                min:0
+                min:0,
+                plotBands:valuePlotBaud
+            },
+            tooltip: {
+                shared: true,
+                enabled: true,
+                useHTML: true,
+                formatter: function() {
+                    tip = ''
+                        + "<table width='160px' class='table-condensed table-bordered table-striped' style='margin:0px'>"
+                    for (i=this.points.length-1;i>=0;i--)
+                    {
+                        color = this.points[i].series.color;
+                        names = this.points[i].series.name;
+                        y = this.points[i].y;
+                        level = this.points[i].point.level;
+                        tip = tip +  "<tr><td width='80px' style='color:" + color + "'>" + names +"</td><td align='right'><b>"+ y + "</b></td><td align='center' style='" + getAQIStyle(y) + "'>"+ level + "</td></tr>";
+                    }
+                    tip = tip + "</table>";
+                    return tip;
+
+                }
             },
             series : [
                 {
-                    name : 'AQI',
+                    name : 'MAX',
                     type : 'spline',
                     color : '#a94442',
-                    data : AQI
+                    data : max
                 },{
-                    name : 'PM25',
+                    name : 'MIN',
                     type : 'spline',
                     color : '#470756',
-                    data : PM25
+                    data : min
                 },{
-                    name : 'SO2',
+                    name : 'AVG',
                     type : 'spline',
                     color : '#123456',
-                    data : CO
-                },{
-                    name : 'NO2',
-                    type : 'spline',
-                    color : '#560741',
-                    data : NO2
+                    data : avg
                 }
             ]
         })

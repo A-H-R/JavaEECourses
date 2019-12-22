@@ -38,7 +38,6 @@
                 <tr>
                     <th>时间</th>
                     <th>AQI</th>
-                    <th>范围</th>
                     <th>质量等级</th>
                     <th>PM2.5</th>
                     <th>PM10</th>
@@ -113,17 +112,22 @@
 
                 var AQI = [];
                 var PM25 = [];
+                // var PM10 = [];
                 var SO2 = [];
-                var NO2 = [];
+                var CO = [];
+                // var NO2 = [];
+                // var O3 = [];
                 var time = [];
                 var spanclass = [];
                 for (var i = 0; i < data.length;i++){
                     AQI[i] = parseInt(data[i].aqi);
                     PM25[i] = parseInt(data[i].pm25);
-                    SO2[i] = parseInt(data[i].so2);
-                    NO2[i] = parseInt(data[i].no2);
+                    // PM10[i] = parseInt(data[i].pm10);
+                    SO2[i] = parseInt(data[i].so2)
+                    CO[i] = parseInt(data[i].co);
+                    // NO2[i] = parseInt(data[i].no2);
+                    // O3[i] = parseInt(data[i].o3);
                     time.push(data[i].data);
-
                     //spanclass
                     switch (data[i].level) {
                         case "严重污染" : spanclass.push("serious"); break;
@@ -135,6 +139,8 @@
 
                     }
                 }
+                var numdata = [];
+                // numdata.push(AQI);numdata.push(PM25);numdata.push(PM10);numdata.push(SO2);numdata.push(CO);
                 showTable(data,spanclass);
                 showHistory(AQI,PM25,SO2,NO2,time);
             }
@@ -145,7 +151,6 @@
             $("table tbody").append('<tr>' +
                 '<td>'+items[i].data+'</td>' +
                 '<td>'+items[i].aqi+'</td>' +
-                '<td>'+items[i].range+'</td>' +
                 '<td><span class="tablespan '+ spanclass[i]+'">'+items[i].level+'</span></td>' +
                 '<td>'+items[i].pm25+'</td>' +
                 '<td>'+items[i].pm10+'</td>' +
