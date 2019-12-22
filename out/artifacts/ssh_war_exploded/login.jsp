@@ -135,7 +135,7 @@
     function showTable(items,spanclass){
         for (var i = 0; i<items.length;i++){
             $("table tbody").append('<tr>' +
-                '<td>'+items[i].data+'</td>' +
+                '<td><a href="month.jsp?name=nanjing&month='+items[i].data+'">'+items[i].data+'</a></td>'+
                 '<td>'+items[i].aqi+'</td>' +
                 '<td>'+items[i].range+'</td>' +
                 '<td><span class="tablespan '+ spanclass[i]+'">'+items[i].level+'</span></td>' +

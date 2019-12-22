@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>历史AQI</title>
+    <title>月AQI展示</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
 
@@ -12,7 +12,10 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
-
+    <%
+        String name = request.getParameter("name");
+        String month = request.getParameter("month");
+    %>
 </head>
 <body>
 <!-- 总体 -->
@@ -21,7 +24,6 @@
         <img src="static/img/air3.jpg" style="display: block;height: auto;width: 100%;line-height: 1;">
     </div>
 
-    <a href="success.jsp">wo tao tiao </a>
     <!-- 表格 -->
     <div>
         <div class="container">
@@ -98,7 +100,8 @@
             url : "yearAQI/querybyname",
             type : "post",
             data : {
-                name : 'nanjing'
+                name : '<%=name%>',
+                month : '<%=month%>'
             },
             success : function (data) {
 

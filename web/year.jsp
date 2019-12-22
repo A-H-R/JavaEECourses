@@ -12,7 +12,9 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
-
+    <%
+        String cityname = request.getParameter("cityname");
+    %>
 </head>
 <body>
 <!-- 总体 -->
@@ -20,8 +22,6 @@
     <div align="center">
         <img src="static/img/air3.jpg" style="display: block;height: auto;width: 100%;line-height: 1;">
     </div>
-
-    <a href="success.jsp">wo tao tiao </a>
     <!-- 表格 -->
     <div>
         <div class="container">
@@ -90,15 +90,12 @@
 
 
 <script type="text/javascript">
-    function loaddata(city){
-        if (!city){
-            city = "nanjing";
-        }
+    function loaddata(){
         $.ajax({
-            url : "yearAQI/query",
+            url : "yearAQI/querybyname",
             type : "post",
             data : {
-                cityname : city
+                name : '<%=cityname%>'
             },
             success : function (data) {
 
@@ -134,7 +131,7 @@
     function showTable(items,spanclass){
         for (var i = 0; i<items.length;i++){
             $("table tbody").append('<tr>' +
-                '<td>'+items[i].data+'</td>' +
+                '<td><a href="month.jsp?name=nanjing&month='+items[i].data+'">'+items[i].data+'</a></td>'+
                 '<td>'+items[i].aqi+'</td>' +
                 '<td>'+items[i].range+'</td>' +
                 '<td><span class="tablespan '+ spanclass[i]+'">'+items[i].level+'</span></td>' +

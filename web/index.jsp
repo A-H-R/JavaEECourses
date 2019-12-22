@@ -11,6 +11,8 @@
     <title>$Title$</title>
   </head>
   <body>
-  welcome
+      <div>
+        <a href="year.jsp?cityname=nanjing">南京</a>
+      </div>
   </body>
 </html>
