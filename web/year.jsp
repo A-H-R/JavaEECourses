@@ -197,8 +197,10 @@
     }
     function showTable(items,spanclass){
         for (var i = 0; i<items.length;i++){
+            var time = items[i].data;
+            var month = time.substring(0,time.lastIndexOf("/"));
             $("table tbody").append('<tr>' +
-                '<td><a href="month.jsp?name=nanjing&month='+items[i].data+'">'+items[i].data+'</a></td>'+
+                '<td><a href="month.jsp?name=nanjing&month='+month+'">'+month+'</a></td>'+
                 '<td>'+items[i].aqi+'</td>' +
                 '<td>'+items[i].range+'</td>' +
                 '<td><span class="tablespan '+ spanclass[i]+'">'+items[i].level+'</span></td>' +

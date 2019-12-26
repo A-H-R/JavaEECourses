@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="bean.Month" table="month" schema="jdata">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="data">
+            <column name="data" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="aqi">
+            <column name="AQI" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="level">
+            <column name="level" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="pm25">
+            <column name="PM25" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="pm10">
+            <column name="PM10" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="so2">
+            <column name="SO2" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="co">
+            <column name="CO" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="no2">
+            <column name="NO2" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="o3">
+            <column name="O3" sql-type="varchar(255)" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

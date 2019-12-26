@@ -30,6 +30,11 @@
         <img src="static/img/air3.jpg" style="display: block;height: auto;width: 100%;line-height: 1;">
     </div>
 
+
+    <!-- 图例 -->
+    <div class="container">
+        <div align="center" id="historypopu"></div>
+    </div>
     <!-- 表格 -->
     <div>
         <div class="container">
@@ -38,7 +43,6 @@
                 <tr>
                     <th>时间</th>
                     <th>AQI</th>
-                    <th>范围</th>
                     <th>质量等级</th>
                     <th>PM2.5</th>
                     <th>PM10</th>
@@ -55,10 +59,7 @@
     </div>
 
 
-    <!-- 图例 -->
-    <div>
-        <div align="center" class="mycharts" id="historypopu"></div>
-    </div>
+
 
 
     <div id="container" style="width: 400px;height: 300px;"></div>
@@ -76,6 +77,9 @@
         padding: 5px 10px;
         border-radius: 5px;
         box-shadow: 2px 2px 10px grey;
+    }
+    .yanzhong{
+        background-color: #A51919;
     }
     .serious{
         background-color: #EA3F05;
@@ -103,29 +107,35 @@
             city = "nanjing";
         }
         $.ajax({
-            url : "yearAQI/querybyname",
+            url : "monthAQI/query",
             type : "post",
             data : {
-                name : '<%=name%>',
-                month : '<%=month%>'
+                cityname : '<%=name%>',
+                data : '<%=month%>'
             },
             success : function (data) {
 
                 var AQI = [];
                 var PM25 = [];
+                // var PM10 = [];
                 var SO2 = [];
+                var CO = [];
                 var NO2 = [];
+                // var O3 = [];
                 var time = [];
                 var spanclass = [];
                 for (var i = 0; i < data.length;i++){
                     AQI[i] = parseInt(data[i].aqi);
                     PM25[i] = parseInt(data[i].pm25);
-                    SO2[i] = parseInt(data[i].so2);
+                    // PM10[i] = parseInt(data[i].pm10);
+                    SO2[i] = parseInt(data[i].so2)
+                    CO[i] = parseInt(data[i].co);
                     NO2[i] = parseInt(data[i].no2);
+                    // O3[i] = parseInt(data[i].o3);
                     time.push(data[i].data);
-
                     //spanclass
                     switch (data[i].level) {
+                        case "重度污染" : spanclass.push("yanzhong");break;
                         case "严重污染" : spanclass.push("serious"); break;
                         case "中度污染" : spanclass.push("moderate"); break;
                         case "轻度污染" : spanclass.push("mild"); break;
@@ -135,6 +145,8 @@
 
                     }
                 }
+                var numdata = [];
+                // numdata.push(AQI);numdata.push(PM25);numdata.push(PM10);numdata.push(SO2);numdata.push(CO);
                 showTable(data,spanclass);
                 showHistory(AQI,PM25,SO2,NO2,time);
             }
@@ -145,7 +157,6 @@
             $("table tbody").append('<tr>' +
                 '<td>'+items[i].data+'</td>' +
                 '<td>'+items[i].aqi+'</td>' +
-                '<td>'+items[i].range+'</td>' +
                 '<td><span class="tablespan '+ spanclass[i]+'">'+items[i].level+'</span></td>' +
                 '<td>'+items[i].pm25+'</td>' +
                 '<td>'+items[i].pm10+'</td>' +

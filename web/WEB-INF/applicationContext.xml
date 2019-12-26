@@ -29,6 +29,8 @@
                 <value>classpath:bean/Addresslist.hbm.xml</value>
                 <value>classpath:bean/YearNanjing.hbm.xml</value>
                 <value>classpath:bean/City.hbm.xml</value>
+                <value>classpath:bean/Month.hbm.xml</value>
+                <value>classpath:bean/Day.hbm.xml</value>
             </list>
         </property>
         <property name="annotatedClasses">
@@ -36,6 +38,8 @@
                 <value>bean.Addresslist</value>
                 <value>bean.YearNanjing</value>
                 <value>bean.City</value>
+                <value>bean.Month</value>
+                <value>bean.Day</value>
             </list>
         </property>
     </bean>
@@ -56,6 +60,21 @@
     <bean id="yearAQIAction" class="action.YearAQIAction">
         <property name="yearAQI" ref="yearAQI"></property>
     </bean>
+
+    <bean id="monthAQI" class="service.MonthImpl">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="monthAQIAction" class="action.MonthAQIAction">
+        <property name="month"   ref="monthAQI"></property>
+    </bean>
+
+    <bean id="dayAQI" class="service.DayImpl">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="datAQIAction" class="action.DayAQIAction">
+        <property name="day" ref="dayAQI"></property>
+    </bean>
+
 
 
     <bean id="cityname" class="service.CityImpl">

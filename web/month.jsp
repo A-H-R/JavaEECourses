@@ -30,6 +30,11 @@
         <img src="static/img/air3.jpg" style="display: block;height: auto;width: 100%;line-height: 1;">
     </div>
 
+
+    <!-- 图例 -->
+    <div class="container">
+        <div align="center" id="historypopu"></div>
+    </div>
     <!-- 表格 -->
     <div>
         <div class="container">
@@ -54,10 +59,7 @@
     </div>
 
 
-    <!-- 图例 -->
-    <div>
-        <div align="center" class="mycharts" id="historypopu"></div>
-    </div>
+
 
 
     <div id="container" style="width: 400px;height: 300px;"></div>
@@ -75,6 +77,9 @@
         padding: 5px 10px;
         border-radius: 5px;
         box-shadow: 2px 2px 10px grey;
+    }
+    .yanzhong{
+        background-color: #A51919;
     }
     .serious{
         background-color: #EA3F05;
@@ -102,11 +107,11 @@
             city = "nanjing";
         }
         $.ajax({
-            url : "yearAQI/querybyname",
+            url : "monthAQI/query",
             type : "post",
             data : {
-                name : '<%=name%>',
-                month : '<%=month%>'
+                cityname : '<%=name%>',
+                data : '<%=month%>'
             },
             success : function (data) {
 
@@ -115,7 +120,7 @@
                 // var PM10 = [];
                 var SO2 = [];
                 var CO = [];
-                // var NO2 = [];
+                var NO2 = [];
                 // var O3 = [];
                 var time = [];
                 var spanclass = [];
@@ -125,11 +130,12 @@
                     // PM10[i] = parseInt(data[i].pm10);
                     SO2[i] = parseInt(data[i].so2)
                     CO[i] = parseInt(data[i].co);
-                    // NO2[i] = parseInt(data[i].no2);
+                    NO2[i] = parseInt(data[i].no2);
                     // O3[i] = parseInt(data[i].o3);
                     time.push(data[i].data);
                     //spanclass
                     switch (data[i].level) {
+                        case "重度污染" : spanclass.push("yanzhong");break;
                         case "严重污染" : spanclass.push("serious"); break;
                         case "中度污染" : spanclass.push("moderate"); break;
                         case "轻度污染" : spanclass.push("mild"); break;

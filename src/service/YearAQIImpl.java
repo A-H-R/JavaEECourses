@@ -45,4 +45,7 @@ public class YearAQIImpl implements YearAQI {
         List<YearNanjing> list = session.createSQLQuery(sql).addEntity(YearNanjing.class).list();
         return list;
     }
+
+
+
 }
