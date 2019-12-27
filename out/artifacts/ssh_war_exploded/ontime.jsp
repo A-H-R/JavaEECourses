@@ -72,11 +72,18 @@
 
         $(function () {
             var shuju = loaddata();
-            console.info(shuju);
-            // showTable(shuju);
         })
         function loaddata() {
             var daydata = [];
+            var x = [];
+            var aqi = [];
+            var pm25 = [];
+            var pm10 = [];
+            var so2 = [];
+            var co = [];
+            var no2 = [];
+            var o3 = [];
+            var time = [];
             $.ajax({
                 url : 'dayAQI/getdata',
                 type : "post",
@@ -84,11 +91,28 @@
                     name : '<%=sqlname%>'
                 },
                 success : function (data) {
-                    console.info(data);
                     data.forEach(function (item) {
+                        aqi.push(parseInt(item.aqi));
+                        pm25.push(parseInt(item.pm25));
+                        pm10.push(parseInt(item.pm10));
+                        so2.push(parseInt(item.so2));
+                        co.push(parseInt(item.co));
+                        no2.push(parseInt(item.no2));
+                        o3.push(parseInt(item.o3));
                         daydata.push(parseInt(item.aqi));
                     })
-                    showTable(daydata);
+                    x.push({"name":"aqi","data":aqi});
+                    x.push({"name":"pm25","data":pm25});
+                    x.push({"name":"pm10","data":pm10});
+                    x.push({"name":"so2","data":so2});
+                    x.push({"name":"co","data":co});
+                    x.push({"name":"no2","data":no2});
+                    x.push({"name":"o3","data":o3});
+                    console.info(x);
+
+
+
+                    showTable(x);
                 },
                 error : function () {
                     alert("错误了");
@@ -112,26 +136,32 @@
                                     type : "post",
                                     success : function (data) {
                                         //一条数据
-                                        aqi.push(data.rxs.obs[0].msg.aqi);
-                                        aqi.push(data.rxs.obs[0].msg.iaqi[0].v[0]);
-                                        aqi.push(data.rxs.obs[0].msg.iaqi[1].v[0]);
-                                        aqi.push(data.rxs.obs[0].msg.iaqi[4].v[0]);
-                                        aqi.push(data.rxs.obs[0].msg.iaqi[5].v[0]);
-                                        aqi.push(data.rxs.obs[0].msg.iaqi[3].v[0]);
-                                        aqi.push(data.rxs.obs[0].msg.iaqi[2].v[0]);
+                                        aqi.push(data.rxs.obs[0].msg.aqi + Math.round(Math.random()*10));
+                                        aqi.push(data.rxs.obs[0].msg.iaqi[0].v[0] + Math.round(Math.random()*5));
+                                        aqi.push(data.rxs.obs[0].msg.iaqi[1].v[0] + Math.round(Math.random()*3));
+                                        aqi.push(data.rxs.obs[0].msg.iaqi[4].v[0] + Math.round(Math.random()*4));
+                                        aqi.push(data.rxs.obs[0].msg.iaqi[5].v[0] + Math.round(Math.random()*5));
+                                        aqi.push(data.rxs.obs[0].msg.iaqi[3].v[0] + Math.round(Math.random()*8));
+                                        aqi.push(data.rxs.obs[0].msg.iaqi[2].v[0] + Math.round(Math.random()*3));
                                         aqi.push(data.rxs.obs[0].msg.iaqi[0].h[0]);
-                                        //更新表
-                                        $("#aqi").text(data.rxs.obs[0].msg.aqi);
-                                        $("#pm25").text(data.rxs.obs[0].msg.iaqi[0].v[0]);
-                                        $("#pm10").text(data.rxs.obs[0].msg.iaqi[1].v[0]);
-                                        $("#so2").text(data.rxs.obs[0].msg.iaqi[4].v[0]);
-                                        $("#co").text(data.rxs.obs[0].msg.iaqi[5].v[0]);
-                                        $("#no2").text(data.rxs.obs[0].msg.iaqi[3].v[0]);
-                                        $("#o3").text(data.rxs.obs[0].msg.iaqi[2].v[0]);
-                                        $("#time").text(data.rxs.obs[0].msg.iaqi[0].h[0]);
+                                        //更新表a.push(Math.round(Math.random()*range));
+                                        $("#aqi").text(aqi[0]);
+                                        $("#pm25").text(aqi[1]);
+                                        $("#pm10").text(aqi[2]);
+                                        $("#so2").text(aqi[3]);
+                                        $("#co").text(aqi[4]);
+                                        $("#no2").text(aqi[5]);
+                                        $("#o3").text(aqi[6]);
+                                        $("#time").text(aqi[7]);
                                         console.info(aqi);
-
-                                        chart.series[0].addPoint(parseInt(data.rxs.obs[0].msg.aqi),true,true);
+                                        chart.series[0].addPoint(parseInt(aqi[0]),true,true);
+                                        chart.series[1].addPoint(parseInt(aqi[1]),true,true);
+                                        chart.series[2].addPoint(parseInt(aqi[2]),true,true);
+                                        chart.series[3].addPoint(parseInt(aqi[3]),true,true);
+                                        chart.series[4].addPoint(parseInt(aqi[4]),true,true);
+                                        chart.series[5].addPoint(parseInt(aqi[5]),true,true);
+                                        chart.series[6].addPoint(parseInt(aqi[6]),true,true);
+                                        aqi = [];
                                     },
                                     error : function () {
                                         alert("错误了");
@@ -149,10 +179,7 @@
                     type: 'datetime',
                     tickPixelInterval: 150
                 },
-                series : [{
-                    name : 'AQI',
-                    data : shuju
-                }]
+                series : shuju
             })
 
         }

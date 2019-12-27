@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-      <title>$Title$</title>
+      <title>首页</title>
       <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
       <link rel="stylesheet" type="text/css" href="static/css/nav.css">
   </head>
@@ -66,7 +66,6 @@
               $("#cityplace").append(
                   '<div class="city">'+
                   '<a href="ontime.jsp?name='+item.cityname+'&num='+item.num+'&cityname='+item.tip+'">'+item.cityname+'</a>'+
-                  // '<a href="ontime.jsp.jsp?name="'+item.cityname+'"&num="'+item.num+'"&cityname='+item.tip+'">'+item.cityname+'</a>+
                   '</div>'
                 )
           })
