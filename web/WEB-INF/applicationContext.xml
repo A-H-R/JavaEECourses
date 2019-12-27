@@ -7,7 +7,7 @@
     <!-- data connection -->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-        <property name="url" value="jdbc:mysql://localhost:3306/jdata?useUnicode=true"></property>
+        <property name="url" value="jdbc:mysql://148.70.187.228:3306/jdata?useUnicode=true"></property>
         <property name="username" value="root"/>
         <property name="password" value="123456"/>
     </bean>
@@ -20,7 +20,7 @@
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.connection.url"><![CDATA[jdbc:mysql://localhost:3306/jdata?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC]]></prop>
+                <prop key="hibernate.connection.url"><![CDATA[jdbc:mysql://148.70.187.228:3306/jdata?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC]]></prop>
                 <prop key="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</prop>
             </props>
         </property>

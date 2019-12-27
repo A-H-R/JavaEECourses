@@ -25,6 +25,7 @@
       <div>
           <p class="title">城市</p>
           <div style="margin: 10px 10%;" id="cityplace"></div>
+
       </div>
   </div>
 
@@ -64,7 +65,8 @@
           items.forEach(function (item) {
               $("#cityplace").append(
                   '<div class="city">'+
-                  '<a href="year.jsp?cityname='+item.tip+'">'+item.cityname+'</a>'+
+                  '<a href="ontime.jsp?name='+item.cityname+'&num='+item.num+'&cityname='+item.tip+'">'+item.cityname+'</a>'+
+                  // '<a href="ontime.jsp.jsp?name="'+item.cityname+'"&num="'+item.num+'"&cityname='+item.tip+'">'+item.cityname+'</a>+
                   '</div>'
                 )
           })

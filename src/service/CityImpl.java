@@ -1,7 +1,6 @@
 package service;
 
 import bean.City;
-import com.sun.org.apache.xml.internal.resolver.readers.TR9401CatalogReader;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -25,6 +24,7 @@ public class CityImpl implements cityN{
         Transaction tx = session.beginTransaction();
         String sql = "from City";
         List<City> list = session.createQuery(sql).list();
+        session.close();
         return list;
     }
 }

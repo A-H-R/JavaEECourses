@@ -29,8 +29,8 @@ public class YearAQIImpl implements YearAQI {
         String sql = "from YearNanjing";
         Query query = session.createQuery(sql);
         List<YearNanjing> list = query.list();
+        session.close();
         tx.commit();    //更新数据库用的
-
         if (list.size()>0){
             return list;
         }
@@ -43,6 +43,7 @@ public class YearAQIImpl implements YearAQI {
         Transaction tx = session.beginTransaction();
         String sql = "select * from year_"+name;
         List<YearNanjing> list = session.createSQLQuery(sql).addEntity(YearNanjing.class).list();
+        session.close();
         return list;
     }
 

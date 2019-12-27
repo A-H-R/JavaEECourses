@@ -25,6 +25,7 @@ public class MonthImpl implements Month{
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         List<bean.Month> list = session.createSQLQuery(sql).addEntity(bean.Month.class).list();
+        session.close();//关闭数据库连接
         return list;
     }
 

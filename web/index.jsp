@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-      <title>$Title$</title>
+      <title>首页</title>
       <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
       <link rel="stylesheet" type="text/css" href="static/css/nav.css">
   </head>
@@ -25,6 +25,7 @@
       <div>
           <p class="title">城市</p>
           <div style="margin: 10px 10%;" id="cityplace"></div>
+
       </div>
   </div>
 
@@ -64,7 +65,7 @@
           items.forEach(function (item) {
               $("#cityplace").append(
                   '<div class="city">'+
-                  '<a href="year.jsp?cityname='+item.tip+'">'+item.cityname+'</a>'+
+                  '<a href="ontime.jsp?name='+item.cityname+'&num='+item.num+'&cityname='+item.tip+'">'+item.cityname+'</a>'+
                   '</div>'
                 )
           })

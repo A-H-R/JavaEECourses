@@ -17,6 +17,20 @@
         String cityname = request.getParameter("cityname");
     %>
 </head>
+<style type="text/css">
+    .tiptime{
+        margin: 10px 12px;
+        border-bottom: 2px solid gray;
+    }
+
+    .tip{
+        border: 1px solid;
+        width: 180px;
+        border-radius: 5px;
+        box-shadow: 2px 2px #a09e9e;
+    }
+</style>
+
 <body>
 <!-- 总体 -->
 <div>
@@ -27,36 +41,41 @@
     <div align="center">
         <img src="static/img/air3.jpg" style="display: block;height: auto;width: 100%;line-height: 1;">
     </div>
-
-    <!-- 图例 -->
-    <div class="container">
-        <div align="center" class="mycharts" id="historypopu"></div>
-    </div>
-    <!-- 表格 -->
     <div>
+
+        <!-- 图例 -->
         <div class="container">
-            <table class="table table-striped table-hover size">
-                <thead class="thead-light">
-                <tr>
-                    <th>时间</th>
-                    <th>AQI</th>
-                    <th>范围</th>
-                    <th>质量等级</th>
-                    <th>PM2.5</th>
-                    <th>PM10</th>
-                    <th>SO2</th>
-                    <th>CO</th>
-                    <th>NO2</th>
-                    <th>O3</th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <div align="center" class="mycharts" id="historypopu"></div>
+        </div>
+        <!-- 表格 -->
+        <div>
+            <div class="container">
+                <table class="table table-striped table-hover size">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>时间</th>
+                        <th>AQI</th>
+                        <th>范围</th>
+                        <th>质量等级</th>
+                        <th>PM2.5</th>
+                        <th>PM10</th>
+                        <th>SO2</th>
+                        <th>CO</th>
+                        <th>NO2</th>
+                        <th>O3</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="container" style="width: 400px;height: 300px;"></div>
+        <div>
+
         </div>
     </div>
-
-    <div id="container" style="width: 400px;height: 300px;"></div>
 </div>
 
 <style type="text/css">
@@ -175,8 +194,8 @@
                 for (var i = 0; i < data.length;i++){
                     // AQI[i] = parseInt(data[i].aqi);
                     var x = data[i].range.split("~");
-                    max.push(parseInt(x[0]));
-                    min.push(parseInt(x[1]));
+                    min.push(parseInt(x[0]));
+                    max.push(parseInt(x[1]));
                     avg.push((parseInt(x[0])+parseInt(x[1]))/2);
                     time.push(data[i].data);
                     //spanclass
@@ -239,31 +258,29 @@
                 enabled: true,
                 useHTML: true,
                 formatter: function() {
-                    tip = ''
-                        + "<table width='160px' class='table-condensed table-bordered table-striped' style='margin:0px'>"
-                    for (i=this.points.length-1;i>=0;i--)
-                    {
-                        color = this.points[i].series.color;
-                        names = this.points[i].series.name;
-                        y = this.points[i].y;
-                        level = this.points[i].point.level;
-                        tip = tip +  "<tr><td width='80px' style='color:" + color + "'>" + names +"</td><td align='right'><b>"+ y + "</b></td><td align='center' style='" + getAQIStyle(y) + "'>"+ level + "</td></tr>";
+                    tip = '<div class="tip">'+
+                    '<div class="tiptime">时间:'+this.x+'</div>';
+                    for (var i = this.points.length-1;i>=0;i--){
+                        tipname = this.points[i].series.name;
+                        tipy = this.points[i].y;
+                        tip  = tip + '<div style="margin: 5px 24px;"><span>'+tipname+':</span><span style="margin-left:28px; ">'+tipy+'</span></div>';
                     }
-                    tip = tip + "</table>";
+                    tip = tip + '</div>';
                     return tip;
+
                 }
             },
             series : [
                 {
-                    name : 'MAX',
-                    type : 'spline',
-                    color : '#a94442',
-                    data : max
-                },{
                     name : 'MIN',
                     type : 'spline',
                     color : '#470756',
                     data : min
+                },{
+                    name : 'MAX',
+                    type : 'spline',
+                    color : '#a94442',
+                    data : max
                 },{
                     name : 'AVG',
                     type : 'spline',

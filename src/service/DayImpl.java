@@ -25,9 +25,7 @@ public class DayImpl implements Day{
         String sql = "select * from year_" + name + " order by data limit 9";
         System.out.println(sql);
         List<YearNanjing> list = session.createSQLQuery(sql).addEntity(YearNanjing.class).list();
-        System.out.println(list);
-        System.out.println(list.size());
-        tx.commit();
+        session.close();//关闭数据库连接
         return list;
     }
 
@@ -37,6 +35,7 @@ public class DayImpl implements Day{
         Transaction tx = session.beginTransaction();
         String sql = "select * from year_" + name + " order by data limit 9,10";
         List<YearNanjing> data = session.createSQLQuery(sql).addEntity(YearNanjing.class).list();
+        session.close();//关闭数据库连接
         return data;
     }
 }
